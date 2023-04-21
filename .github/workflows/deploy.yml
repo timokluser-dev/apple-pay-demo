@@ -21,6 +21,9 @@ jobs:
       - name: Build
         run: |
           npm run build
+        env:
+          VITE_STRIPE_API_KEY: ${{ secrets.VITE_STRIPE_API_KEY }}
+          VITE_STRIPE_SECRET_KEY: ${{ secrets.VITE_STRIPE_SECRET_KEY }}
       - name: Publish
         uses: actions/upload-pages-artifact@v1
         with:
