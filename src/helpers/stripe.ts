@@ -10,6 +10,8 @@ import {
   type PaymentRequestShippingOptionEvent,
 } from '@stripe/stripe-js';
 
+const SHOP_NAME = 'Apple Pay Demo';
+
 let _client: Stripe | null = null;
 
 export const useStripe = async (): Promise<Stripe> => {
@@ -34,7 +36,7 @@ export const createPaymentRequest = async (cart: Cart): Promise<PaymentRequest> 
     country: 'CH',
     currency: 'chf',
     total: {
-      label: 'My Shop Name',
+      label: SHOP_NAME,
       amount: priceToAmount(cart.total),
     },
     displayItems: cart.items.map((i): PaymentRequestItem => {
@@ -75,7 +77,7 @@ const handleShipping = (event: PaymentRequestShippingAddressEvent) => {
       };
     }),
     total: {
-      label: 'My Shop Name',
+      label: SHOP_NAME,
       amount: priceToAmount(cart.total + shippingOptions[0].price),
     },
     displayItems: [
@@ -99,7 +101,7 @@ const handleShippingCost = (event: PaymentRequestShippingOptionEvent) => {
   event.updateWith({
     status: 'success',
     total: {
-      label: 'My Shop Name',
+      label: SHOP_NAME,
       amount: priceToAmount(cart.total),
     },
     displayItems: [
