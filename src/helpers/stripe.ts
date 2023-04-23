@@ -9,6 +9,7 @@ import {
   type PaymentRequestShippingOption,
   type PaymentRequestShippingOptionEvent,
 } from '@stripe/stripe-js';
+import router from '../router';
 
 const SHOP_NAME = 'Apple Pay Demo';
 
@@ -156,5 +157,6 @@ export const handlePayment = async (event: PaymentRequestPaymentMethodEvent): Pr
   } else {
     event.complete('success');
     console.log('[UI]: 🎉 thank you for your payment', paymentIntent);
+    router.push({ name: 'thank-you' });
   }
 };
