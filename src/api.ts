@@ -48,9 +48,18 @@ class Api {
     },
   ];
 
-  public getCart(): Cart {
-    console.log('[API]: get cart');
+  private getShippingOption(id: string): ShippingOption {
+    console.log(`[API]: get shipping with id: ${id}`);
+    const shippingOption = this.shippingOptions.find((s) => s.id === id);
 
+    if (!shippingOption) {
+      throw new Error('[API]: shipping option is invalid');
+    }
+
+    return shippingOption;
+  }
+
+  public getCart(shippingOptionId: string | null = null): Cart {
     const items: CartItem[] = [
       {
         id: 1,
@@ -63,6 +72,18 @@ class Api {
         price: 259.0,
       },
     ];
+
+    if (shippingOptionId) {
+      console.log('[API]: get cart with shipping');
+      const shippingOption = this.getShippingOption(shippingOptionId);
+      items.push({
+        id: 0,
+        name: shippingOption.label,
+        price: shippingOption.price,
+      });
+    } else {
+      console.log('[API]: get cart');
+    }
 
     return {
       items,
@@ -104,10 +125,7 @@ class Api {
     }
 
     const cart = this.getCart();
-    const shippingOption = this.shippingOptions.find((s) => s.id === shippingOptionId);
-    if (!shippingOption) {
-      throw new Error('[API]: invalid shipping option');
-    }
+    const shippingOption = this.getShippingOption(shippingOptionId);
 
     const total = cart.total * 100 + shippingOption.price * 100;
 
