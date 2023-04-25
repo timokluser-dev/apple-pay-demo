@@ -146,6 +146,7 @@ export const handlePayment = async (event: PaymentRequestPaymentMethodEvent): Pr
   const api = useApi();
   const paymentIntent = await api.createPaymentIntent(event);
 
+  console.log('[UI]: confirm payment');
   const { error: confirmError } = await client.confirmCardPayment(
     paymentIntent.client_secret || '',
     { payment_method: event.paymentMethod.id }

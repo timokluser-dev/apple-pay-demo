@@ -104,7 +104,7 @@ class Api {
   public async createPaymentIntent(
     event: PaymentRequestPaymentMethodEvent
   ): Promise<PaymentIntent> {
-    console.log('[API]: process payment on server', event);
+    console.log('[API]: create payment request on server', event);
 
     console.log('[API]: create order with name', event.payerName);
     console.log('[API]: create order with email', event.payerEmail);
