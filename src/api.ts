@@ -138,7 +138,7 @@ class Api {
       body: `amount=${total}&currency=chf`,
     });
 
-    console.log(`[API]: payment request: ${total / 100}`, event);
+    console.log(`[API]: payment request: ${total / 100}`);
 
     return (await result.json()) as PaymentIntent;
   }
